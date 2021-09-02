@@ -25,7 +25,6 @@ graph = Graph.from_json("./Data/PA_VTDALL.json")
 #make networkx graph
 graph = Graph.from_file("./Data/VTD_FINAL.shp")
 
-print(29)
 #make geopandas dataframe
 df = gpd.read_file("./Data/VTD_FINAL.shp")
 
