@@ -87,7 +87,7 @@ def pairDistance(a1, centroid, distance):
 
 start = time.time()
 
-numGraphs = 100
+numGraphs = 10
 
 centroid = []
 for i in range(10000):
