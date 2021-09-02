@@ -1,4 +1,7 @@
 import json
+import time
+
+from collections import deque
 
 '''
 records population and district for each VTD 
@@ -23,6 +26,7 @@ def countEntries(d, popId, districtId):
 
     return table
 
+
 '''
 converts json to matrix
 
@@ -30,9 +34,7 @@ converts json to matrix
 
 @return a matrix
 '''
-
 def dictToMatrix(table):
-    seenKeys = set()
     matrix = []
     for i in range(len(table)):
         matrix.append([])
@@ -43,13 +45,10 @@ def dictToMatrix(table):
         for key2 in table:
             if key1 == key2:
                 continue
-            elif (key2, key1) in seenKeys:
-                continue
             elif table[key1]['district'] == table[key2]['district']:
                 pop1 = table[key1]['population']
                 pop2 = table[key2]['population']
                 totalPop = pop1 * pop2
-                seenKeys.add((key1, key2))
                 matrix[key1][key2] = totalPop
 
     return matrix
@@ -68,11 +67,15 @@ def pairDistance(a1, centroid, distance):
     for i in range(len(a1)):
         for row in range(len(a1)-i):
             col = i + row
+
             value1 = centroid[row][col]
             value2 = a1[row][col]
-            centroid[row][col] += abs(value1-value2)
+
             if distance:
                 sum += abs(value1-value2)
+
+            else:
+                centroid[row][col] = abs(value1-value2)
     
     if distance:
         return distance / 2
@@ -82,7 +85,9 @@ def pairDistance(a1, centroid, distance):
 
 # END FUNCTIONS #
 
-numGraphs = 101
+start = time.time()
+
+numGraphs = 100
 
 centroid = []
 for i in range(10000):
@@ -94,8 +99,10 @@ for i in range(10000):
 districtId = '2011_PLA_1'
 popId = 'TOT_POP'
 
+stack = deque()
+
 #calculates centroid map
-for i in range(numGraphs)
+for i in range(1, numGraphs+1): #since I labeled the json files using 1 indexing
 
     fdir = "./JSON_Files/plot" + str(i) + ".json"
     with open(fdir) as a:
@@ -104,10 +111,13 @@ for i in range(numGraphs)
     res = countEntries(dict1, popId = popId, districtId = districtId)
 
     matrix = dictToMatrix(res)
+
+    stack.append(matrix)
     
     centroid = pairDistance(matrix, centroid, False)
 
-    print("Graph " + str(i) + " done")
+    if i % 10 == 0 or i == 1:
+        print("Graph " + str(i) + " done")
 
 #divides each entry in the final centroid map by T
 for i in range(len(centroid)):
@@ -118,26 +128,21 @@ print("Centroid calculated")
 
 minDiff = float('inf')
 
-for i in range(numGraphs): #should i just reopen every json file and do this again? 
-
-    fdir = "./JSON_Files/plot" + str(i) + ".json"
-
-    with open(fdir) as a:
-        dict1 = json.load(a)
-
-    res = countEntries(dict1, popId = popId, districtId = districtId)
-    matrix = dictToMatrix(res)
-    
+for i in range(numGraphs+1, 0, -1): #pops each element so start counting from the end
+    matrix = stack.pop() #rightmost element
     distance = pairDistance(matrix, centroid, True)
     
     if distance < minDiff:
         minDiff = distance
-        minMap = matrix
+        minMapNum = i
 
-    print("Graph + " + str(i) + " analyzed")
+    if i % 10 == 0 or i == 0:
+        print("Graph + " + str(i) + " analyzed")
 
+end = time.time()
 print("Done")
+timeElapsed = (end - start) // 60 #in minutes
+print("Took " + str(timeElapsed) + "minutes")
 
 print(minMap)
-print(minDiff)
-
+print(minMapNum)
