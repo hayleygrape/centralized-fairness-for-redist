@@ -148,7 +148,7 @@ while len(stack) != 0:
     matrix = stack.pop() #rightmost element
     distance = pairDistance(matrix, centroid, True)
 
-    distances.append(distance)
+    distances.append((distance), i)
     
     if distance < minDiff:
         minDiff = distance
@@ -163,6 +163,8 @@ end = time.time()
 print("Done")
 timeElapsed = (end - start) // 60 #in minutes
 print("Took " + str(timeElapsed) + " minutes")
+print("Distances array: ")
+print(distances)
 
-print(minDiff)
-print(minMapNum)
+print("Minimum distance " + str(minDiff))
+print("Map chosen" + str(minMapNum))
