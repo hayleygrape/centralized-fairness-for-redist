@@ -35,6 +35,7 @@ converts json to matrix
 @return a matrix
 '''
 def dictToMatrix(table):
+    sum = 0
     matrix = []
     for i in range(len(table)):
         matrix.append([])
@@ -49,7 +50,9 @@ def dictToMatrix(table):
                 pop1 = table[key1]['population']
                 pop2 = table[key2]['population']
                 totalPop = pop1 * pop2
+                sum += totalPop
                 matrix[key1][key2] = totalPop
+    print(sum)
 
     return matrix
 
@@ -120,32 +123,32 @@ for i in range(1, numGraphs+1): #since I labeled the json files using 1 indexing
         print("Graph " + str(i) + " done")
 
 #divides each entry in the final centroid map by T
+sum1 = 0
+sum2 = 0
 for i in range(len(centroid)):
     for j in range(len(centroid[i])):
+        sum1 += centroid[i][j]
         centroid[i][j] /= numGraphs 
+        sum2 += centroid[i][j]
+
+print("Sum of centroid before division " + str(sum1))
+print("Sum of centroid after division " + str(sum2))
 
 currTime = time.time()
 print("Centroid calculated")
 print("Time elapsed so far: " + str((currTime-start) // 60) + "minutes")
 
-for i in range(3):
-    print("\n")
-    print(centroid[i])
-
 minDiff = float('inf')
 
 i = numGraphs #pops each element so start counting from the end
+
+distances = []
 
 while len(stack) != 0:
     matrix = stack.pop() #rightmost element
     distance = pairDistance(matrix, centroid, True)
 
-    for i in range(3):
-        print("\n")
-        print(matrix[i])
-
-    print("\n")
-    print(distance)
+    distances.append(distance)
     
     if distance < minDiff:
         minDiff = distance
