@@ -128,6 +128,10 @@ currTime = time.time()
 print("Centroid calculated")
 print("Time elapsed so far: " + str((currTime-start) // 60) + "minutes")
 
+for i in range(3)):
+    print("\n")
+    print(centroid[i])
+
 minDiff = float('inf')
 
 i = numGraphs #pops each element so start counting from the end
@@ -135,12 +139,19 @@ i = numGraphs #pops each element so start counting from the end
 while len(stack) != 0:
     matrix = stack.pop() #rightmost element
     distance = pairDistance(matrix, centroid, True)
+
+    for i in range(3):
+        print("\n")
+        print(matrix[i])
+
+    print("\n")
+    print(distance)
     
     if distance < minDiff:
         minDiff = distance
         minMapNum = i
 
-    if i % 10 == 0 or i == 0:
+    if i % 10 == 0:
         print("Graph " + str(i) + " analyzed")
 
     i -= 1
@@ -148,7 +159,7 @@ while len(stack) != 0:
 end = time.time()
 print("Done")
 timeElapsed = (end - start) // 60 #in minutes
-print("Took " + str(timeElapsed) + "minutes")
+print("Took " + str(timeElapsed) + " minutes")
 
 print(minDiff)
 print(minMapNum)
