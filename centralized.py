@@ -124,7 +124,9 @@ for i in range(len(centroid)):
     for j in range(len(centroid[i])):
         centroid[i][j] /= numGraphs 
 
+currTime = time.time()
 print("Centroid calculated")
+print("Time elapsed so far: " + str((currTime-endTime) // 60) + "minutes")
 
 minDiff = float('inf')
 
