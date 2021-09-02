@@ -128,7 +128,7 @@ currTime = time.time()
 print("Centroid calculated")
 print("Time elapsed so far: " + str((currTime-start) // 60) + "minutes")
 
-for i in range(3)):
+for i in range(3):
     print("\n")
     print(centroid[i])
 
