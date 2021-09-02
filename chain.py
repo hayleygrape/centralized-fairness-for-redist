@@ -64,7 +64,7 @@ chain = MarkovChain(
     ],
     accept=accept.always_accept,
     initial_state=initial_partition,
-    total_steps=10001
+    total_steps=10000
 )
 
 jsondir = "./JSON_Files/"
@@ -72,7 +72,8 @@ os.makedirs(os.path.dirname(jsondir + "init.txt"), exist_ok = True)
 with open(jsondir + "init.txt", "w") as f:
     f.write("Created Folder")
 
-t = 0
+t = 1
+mapNum = 1
 
 for partition in chain:
     if t % 100 == 0:
@@ -81,11 +82,13 @@ for partition in chain:
 
         #df.plot(column='current',cmap='tab20')
         #plt.savefig(newdir + "plot" + str(t) + ".png")
-        plt.close()
+        #plt.close()
         #print("plot " + str(t) + " saved")
 
-        partition.graph.to_json(jsondir + "plot" + str(t%100) + ".json")
+        partition.graph.to_json(jsondir + "plot" + str(mapNum) + ".json")
 
-        print("JSON for " + str(t%100) + " saved")
+        print("JSON for " + str(mapNum) + " saved")
+
+        mapNum += 1
 
     t += 1
