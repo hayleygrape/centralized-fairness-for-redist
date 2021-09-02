@@ -148,5 +148,5 @@ print("Done")
 timeElapsed = (end - start) // 60 #in minutes
 print("Took " + str(timeElapsed) + "minutes")
 
-print(minMap)
+print(minDiff)
 print(minMapNum)
