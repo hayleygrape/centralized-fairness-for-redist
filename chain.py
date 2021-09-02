@@ -10,7 +10,9 @@ import json
 import geopandas as gpd
 from gerrychain.tree import recursive_tree_part
 from gerrychain.constraints import Validator
+import time
 
+start = time.time()
 
 newdir = "./Maps/"
 os.makedirs(os.path.dirname(newdir + "init.txt"), exist_ok = True)
@@ -91,3 +93,7 @@ for partition in chain:
         mapNum += 1
 
     t += 1
+
+end = time.time()
+timeElapsed = (end-start) // 60 #minutes
+print("Took " + str(timeElapsed) + " minutes")
