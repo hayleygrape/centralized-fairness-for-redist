@@ -130,7 +130,9 @@ print("Time elapsed so far: " + str((currTime-start) // 60) + "minutes")
 
 minDiff = float('inf')
 
-for i in range(numGraphs+1, 0, -1): #pops each element so start counting from the end
+i = numGraphs #pops each element so start counting from the end
+
+while len(stack) != 0:
     matrix = stack.pop() #rightmost element
     distance = pairDistance(matrix, centroid, True)
     
