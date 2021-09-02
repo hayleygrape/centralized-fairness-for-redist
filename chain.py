@@ -87,8 +87,9 @@ for partition in chain:
         #print("plot " + str(t) + " saved")
 
         partition.graph.to_json(jsondir + "plot" + str(mapNum) + ".json")
-
-        print("JSON for " + str(mapNum) + " saved")
+        
+        if mapNum % 10 == 0:
+            print("JSON for " + str(mapNum) + " saved")
 
         mapNum += 1
 
