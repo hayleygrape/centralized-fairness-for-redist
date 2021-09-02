@@ -126,7 +126,7 @@ for i in range(len(centroid)):
 
 currTime = time.time()
 print("Centroid calculated")
-print("Time elapsed so far: " + str((currTime-endTime) // 60) + "minutes")
+print("Time elapsed so far: " + str((currTime-start) // 60) + "minutes")
 
 minDiff = float('inf')
 
