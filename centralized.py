@@ -143,6 +143,8 @@ while len(stack) != 0:
     if i % 10 == 0 or i == 0:
         print("Graph " + str(i) + " analyzed")
 
+    i -= 1
+
 end = time.time()
 print("Done")
 timeElapsed = (end - start) // 60 #in minutes
