@@ -137,7 +137,7 @@ for i in range(numGraphs+1, 0, -1): #pops each element so start counting from th
         minMapNum = i
 
     if i % 10 == 0 or i == 0:
-        print("Graph + " + str(i) + " analyzed")
+        print("Graph " + str(i) + " analyzed")
 
 end = time.time()
 print("Done")
