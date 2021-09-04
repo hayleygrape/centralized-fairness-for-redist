@@ -14,6 +14,8 @@ After finding the centroid, it pops each matrix off of the stack and calculates 
 
 GerryChain docs: https://gerrychain.readthedocs.io/en/latest/index.html
 
+GerryChain source code: https://github.com/mggg/GerryChain.git
+
 Guide to GerryChain by D. Deford: http://www.math.wsu.edu/faculty/ddeford/GerryChain_Guide.pdf
 
 Examples using GerryChain: https://github.com/drdeford/GerryChain-Templates
