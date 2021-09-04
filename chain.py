@@ -29,7 +29,7 @@ graph = Graph.from_json("./Data/PA_VTDALL.json")
 #graph = Graph.from_file("./Data/VTD_FINAL.shp")
 
 #make geopandas dataframe
-#df = gpd.read_file("./Data/VTD_FINAL.shp")
+df = gpd.read_file("./Data/VTD_FINAL.shp")
 
 num_districts = 18
 
@@ -63,8 +63,6 @@ ideal_population = totpop / len(
     initial_partition
 )
 
-print(ideal_population)
-
 proposal = partial(
     recom, 
     pop_col="TOT_POP",
@@ -76,7 +74,6 @@ proposal = partial(
 compactness_bound = constraints.UpperBound(
     lambda p: len(p["cut_edges"]), 2 * len(initial_partition["cut_edges"])
 )
-
 
 chain = MarkovChain(
     proposal=proposal,
@@ -99,12 +96,11 @@ mapNum = 1
 for partition in chain:
     if t % 100 == 0:
         
-        #df['current'] = df["CD_2011"].map(dict(partition.assignment))
+        df["plot" + str(mapNum)] = df["GEOID10"].map(dict(partition.assignment))
 
-        #df.plot(column='current',cmap='tab20')
-        #plt.savefig(newdir + "plot" + str(t) + ".png")
-        #plt.close()
-        #print("plot " + str(t) + " saved")
+        df.plot(column='plot' + str(mapNum),cmap='tab20')
+        plt.savefig(newdir + "plot" + str(t) + ".png")
+        plt.close()
 
         d = {}
 
@@ -146,6 +142,7 @@ for partition in chain:
             currTime = time.time()
             timeElapsed = (currTime - start) // 60
             print("JSON for " + str(mapNum) + " saved in " + str(timeElapsed) + " minutes")
+
 
         mapNum += 1
 
