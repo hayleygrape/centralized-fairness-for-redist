@@ -94,7 +94,7 @@ t = 1
 mapNum = 1
 
 for partition in chain:
-    if t % 1 == 0:
+    if t < 0:
         
         df["plot" + str(mapNum)] = df["GEOID10"].map(dict(partition.assignment))
 
