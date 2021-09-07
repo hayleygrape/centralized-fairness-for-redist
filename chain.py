@@ -82,7 +82,7 @@ chain = MarkovChain(
     ],
     accept=accept.always_accept,
     initial_state=initial_partition,
-    total_steps=100
+    total_steps=10000
 )
 
 jsondir = "./JSON_Files/"
@@ -94,7 +94,7 @@ t = 1
 mapNum = 1
 
 for partition in chain:
-    if t < 0:
+    if t >= 2000 and t % 10 == 0:
         
         df["plot" + str(mapNum)] = df["GEOID10"].map(dict(partition.assignment))
 
