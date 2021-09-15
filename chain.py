@@ -82,7 +82,7 @@ chain = MarkovChain(
     ],
     accept=accept.always_accept,
     initial_state=initial_partition,
-    total_steps=10000
+    total_steps=50000
 )
 
 jsondir = "./JSON_Files/"
@@ -94,7 +94,7 @@ t = 1
 mapNum = 1
 
 for partition in chain:
-    if t >= 2000 and t % 10 == 0:
+    if t % 1 == 0:
         
         df["plot" + str(mapNum)] = df["GEOID10"].map(dict(partition.assignment))
 
@@ -138,7 +138,7 @@ for partition in chain:
         with open(jsondir + "plot" + str(mapNum) + ".json", 'w') as f:
             json.dump(d, f)
 
-        if mapNum % 10 == 0:
+        if mapNum % 1000 == 0:
             currTime = time.time()
             timeElapsed = (currTime - start) // 60
             print("JSON for " + str(mapNum) + " saved in " + str(timeElapsed) + " minutes")
