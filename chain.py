@@ -4,7 +4,7 @@ from gerrychain.proposals import recom
 from gerrychain.updaters import Tally
 from gerrychain.updaters import cut_edges
 from functools import partial
-import pandas
+import pandas as pd
 import networkx as nx
 import os
 import json
@@ -85,7 +85,7 @@ chain = MarkovChain(
     total_steps=50000
 )
 
-jsondir = "./JSON_Files/"
+jsondir = "./JSON_Files2/"
 os.makedirs(os.path.dirname(jsondir + "init.txt"), exist_ok = True)
 with open(jsondir + "init.txt", "w") as f:
     f.write("Created Folder")
@@ -96,11 +96,6 @@ mapNum = 1
 for partition in chain:
     if t % 1 == 0:
         
-        df["plot" + str(mapNum)] = df["GEOID10"].map(dict(partition.assignment))
-
-        df.plot(column='plot' + str(mapNum),cmap='tab20')
-        plt.savefig(newdir + "plot" + str(t) + ".png")
-        plt.close()
 
         d = {}
 
@@ -139,6 +134,13 @@ for partition in chain:
             json.dump(d, f)
 
         if mapNum % 1000 == 0:
+
+            df["plot" + str(mapNum)] = df["GEOID10"].map(dict(partition.assignment))
+
+            df.plot(column='plot' + str(mapNum),cmap='tab20')
+            plt.savefig(newdir + "plot" + str(t) + ".png")
+            plt.close()
+
             currTime = time.time()
             timeElapsed = (currTime - start) // 60
             print("JSON for " + str(mapNum) + " saved in " + str(timeElapsed) + " minutes")
@@ -147,6 +149,7 @@ for partition in chain:
         mapNum += 1
 
     t += 1
+
 
 end = time.time()
 timeElapsed = (end-start) / 60 #minutes
