@@ -7,7 +7,7 @@ from collections import deque
 
 start = time.time()
 
-numGraphs = 100
+numGraphs = 1000
 numDistricts = 18
 
 #create 10,000 x 10,000 array filled with zeros
@@ -50,6 +50,7 @@ for i in range(1, numGraphs+1): #since I labeled the json files using 1 indexing
                 t += 1   
             
             temp[indices[node1], indices[node2]] = 1 #same district
+            temp[indices[node2], indices[node1]] = 1 #should be half filled but can't figure out yet -- filling the whole
 
     if i % 10 == 0:
         print("Map " + str(i) + " done")
@@ -60,9 +61,9 @@ for i in range(1, numGraphs+1): #since I labeled the json files using 1 indexing
 
 currTime = time.time()
 print("Centroid calculated")
-print("Time elapsed so far: " + str((currTime-start) // 60) + " minutes")
+print("Time elapsed so far: " + str((currTime-start) / 60) + " minutes")
 
-minDistance = 0
+minDistance = float('inf')
 distances = []
 
 while len(stack) != 0:
@@ -70,15 +71,15 @@ while len(stack) != 0:
     matrix = stack.pop()
 
     dist = np.linalg.norm(centroid-matrix)
-    distances.append(dist)
+    distances.append(round(dist, 2))
     
     if dist < minDistance:
         minDistance = dist
 
 end = time.time()
 print("Done")
-timeElapsed = (end - start) // 60 #in minutes
+timeElapsed = (end - start) / 60 #in minutes
 print("Took " + str(timeElapsed) + " minutes")
 print("Distances array: ")
 print(distances)
-
+print("Min Difference = " + str(round(minDistance, 2)))
