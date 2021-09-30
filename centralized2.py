@@ -58,7 +58,10 @@ for i in range(1, numGraphs+1): #since I labeled the json files using 1 indexing
 
     #np.save(matdir + "matrix" + str(i) + ".npy", temp)
 
-    centroid = (centroid+temp)/2
+    centroid = centroid + temp
+
+#divide every entry by 2
+centroid /= 2
 
 np.save("centroid.npy", centroid)
 
