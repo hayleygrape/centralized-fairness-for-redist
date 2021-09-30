@@ -1,9 +1,8 @@
 import json
+import os
 import time
 import numpy as np
 from itertools import combinations
-
-from collections import deque
 
 start = time.time()
 
@@ -19,16 +18,18 @@ centroid = np.zeros((10000, 10000))
 
 indices = {}
 
+matdir = "./Matricies/"
+os.makedirs(os.path.dirname(matdir + "init.txt"), exist_ok = True)
+with open(matdir + "init.txt", "w") as f:
+    f.write("Created Folder")
 
 districts = [str(x+1) for x in range(numDistricts)]
-
-stack = deque()
 
 t = 0
 
 for i in range(1, numGraphs+1): #since I labeled the json files using 1 indexing
 
-    fdir = "./JSON_Files2/plot" + str(i) + ".json"
+    fdir = "./JSON_Files2/plot" + str(i+2000) + ".json"
     with open(fdir) as a:
         dict1 = json.load(a)
 
@@ -54,15 +55,19 @@ for i in range(1, numGraphs+1): #since I labeled the json files using 1 indexing
 
     if i % 10 == 0:
         print("Map " + str(i) + " done")
-    
-    stack.append(temp)
+
+    #np.save(matdir + "matrix" + str(i) + ".npy", temp)
 
     centroid = (centroid+temp)/2
+
+np.save("centroid.npy", centroid)
 
 currTime = time.time()
 print("Centroid calculated")
 print("Time elapsed so far: " + str((currTime-start) / 60) + " minutes")
 
+
+'''
 minDistance = float('inf')
 distances = []
 
@@ -83,3 +88,4 @@ print("Took " + str(timeElapsed) + " minutes")
 print("Distances array: ")
 print(distances)
 print("Min Difference = " + str(round(minDistance, 2)))
+'''
