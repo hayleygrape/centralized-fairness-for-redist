@@ -61,7 +61,7 @@ for i in range(1, numGraphs+1): #since I labeled the json files using 1 indexing
     centroid = centroid + temp
 
 #divide every entry by 2
-centroid /= 2
+centroid /= numGraphs
 
 np.save("centroid.npy", centroid)
 
