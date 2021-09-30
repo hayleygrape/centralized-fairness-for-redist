@@ -3,6 +3,8 @@ import time
 
 from collections import deque
 
+#use numpy
+
 '''
 records population and district for each VTD 
 
@@ -47,6 +49,7 @@ def dictToMatrix(table):
             if key1 == key2:
                 continue
             elif table[key1]['district'] == table[key2]['district']:
+                #matrix[key1][key2] = 1
                 pop1 = table[key1]['population']
                 pop2 = table[key2]['population']
                 totalPop = pop1 * pop2
@@ -78,7 +81,7 @@ def pairDistance(a1, centroid, distance):
                 sum += abs(value1-value2)
 
             else:
-                centroid[row][col] = abs(value1-value2)
+                centroid[row][col] = abs(value1+value2)
     
     if distance:
         return distance / 2
@@ -130,9 +133,6 @@ for i in range(len(centroid)):
         sum1 += centroid[i][j]
         centroid[i][j] /= numGraphs 
         sum2 += centroid[i][j]
-
-print("Sum of centroid before division " + str(sum1))
-print("Sum of centroid after division " + str(sum2))
 
 currTime = time.time()
 print("Centroid calculated")

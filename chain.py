@@ -82,7 +82,7 @@ chain = MarkovChain(
     ],
     accept=accept.always_accept,
     initial_state=initial_partition,
-    total_steps=50000
+    total_steps=10
 )
 
 jsondir = "./JSON_Files2/"
