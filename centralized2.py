@@ -6,7 +6,7 @@ from itertools import combinations
 
 start = time.time()
 
-numGraphs = 1000
+numGraphs = 50000
 numDistricts = 18
 
 #create 10,000 x 10,000 array filled with zeros
@@ -18,6 +18,11 @@ centroid = np.zeros((10000, 10000))
 
 indices = {}
 
+progressdir = "./Progress/"
+os.makedirs(os.path.dirname(progressdir + "init.txt"), exist_ok = True)
+with open(progressdir + "init.txt", "w") as f:
+    f.write("Created Folder")
+
 matdir = "./Matricies/"
 os.makedirs(os.path.dirname(matdir + "init.txt"), exist_ok = True)
 with open(matdir + "init.txt", "w") as f:
@@ -27,9 +32,20 @@ districts = [str(x+1) for x in range(numDistricts)]
 
 t = 0
 
-for i in range(1, numGraphs+1): #since I labeled the json files using 1 indexing
+fdir = "./JSON_Files2/plot1.json"
+with open(fdir) as a:
+    dict1 = json.load(a)
 
-    fdir = "./JSON_Files2/plot" + str(i+2000) + ".json"
+#numbering the districts
+for district in districts: 
+    for node in dict1[district]["id"]:
+        if node not in indices:
+            indices[node] = t
+            t += 1
+
+for i in range(2000, numGraphs+1): #since I labeled the json files using 1 indexing
+
+    fdir = "./JSON_Files2/plot" + str(i) + ".json"
     with open(fdir) as a:
         dict1 = json.load(a)
 
@@ -37,38 +53,35 @@ for i in range(1, numGraphs+1): #since I labeled the json files using 1 indexing
 
     for district in districts:
         sameDist = dict1[district]["id"] #array of all the nodes in the same district
-        a = combinations(sameDist, 2)
-        for pairs in a:
 
-            node1 = pairs[0]
-            if node1 not in indices:
-                indices[node1] = t
-                t += 1
+        length = len(sameDist)
 
-            node2 = pairs[1]
-            if node2 not in indices:
-                indices[node2] = t
-                t += 1   
-            
-            temp[indices[node1], indices[node2]] = 1 #same district
-            temp[indices[node2], indices[node1]] = 1 #should be half filled but can't figure out yet -- filling the whole
+        row = np.zeros(10000)
 
-    if i % 10 == 0:
-        print("Map " + str(i) + " done")
+        for node in sameDist:
+            index = indices[node]
+            row[index] = 1
+
+        for node in sameDist:
+            temp[indices[node]] = row
+
+    if i % 1000 == 0:
+        os.makedirs(os.path.dirname(progressdir + "map" + str(i) + ".txt"), exist_ok = True)
+        with open(progressdir + "map" + str(i) + ".txt", "w") as f:
+            f.write("Time elapsed: " + str((time.time()-start)/60) + " minutes")
 
     #np.save(matdir + "matrix" + str(i) + ".npy", temp)
 
     centroid = centroid + temp
 
-#divide every entry by 2
-centroid /= numGraphs
+#divide every entry by number of graphs
+centroid /= (numGraphs-1999)
 
 np.save("centroid.npy", centroid)
 
 currTime = time.time()
 print("Centroid calculated")
 print("Time elapsed so far: " + str((currTime-start) / 60) + " minutes")
-
 
 '''
 minDistance = float('inf')
