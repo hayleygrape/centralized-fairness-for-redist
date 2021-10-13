@@ -1,5 +1,6 @@
 import numpy as np
 import json
+import os
 
 centroid = np.load("centroid.npy")
 
@@ -59,8 +60,8 @@ for i in range(1, numGraphs+1):
             temp[indices[node]] = row
 
     if i % 1000 == 0:
-        os.makedirs(os.path.dirname(progressdir + "map2" + str(i) + ".txt"), exist_ok = True)
-        with open(progressdir + "map2" + str(i) + ".txt", "w") as f:
+        os.makedirs(os.path.dirname(progressdir + "distance" + str(i) + ".txt"), exist_ok = True)
+        with open(progressdir + "distance" + str(i) + ".txt", "w") as f:
             f.write("Time elapsed: " + str((time.time()-start)/60) + " minutes")
 
     if weighted:
