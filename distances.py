@@ -9,7 +9,7 @@ progressdir = "./Progress/"
 
 centroid = np.load("centroid.npy")
 
-numGraphs = 10
+numGraphs = 50000
 numDistricts = 18
 
 weighted = False
