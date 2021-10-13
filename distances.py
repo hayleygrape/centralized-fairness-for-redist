@@ -1,10 +1,15 @@
 import numpy as np
 import json
 import os
+import time
+
+start = time.time()
+
+progressdir = "./Progress/"
 
 centroid = np.load("centroid.npy")
 
-numGraphs = 50000
+numGraphs = 10
 numDistricts = 18
 
 weighted = False
@@ -59,17 +64,17 @@ for i in range(1, numGraphs+1):
         for node in sameDist:
             temp[indices[node]] = row
 
-    if i % 1000 == 0:
-        os.makedirs(os.path.dirname(progressdir + "distance" + str(i) + ".txt"), exist_ok = True)
-        with open(progressdir + "distance" + str(i) + ".txt", "w") as f:
-            f.write("Time elapsed: " + str((time.time()-start)/60) + " minutes")
-
     if weighted:
         weightedDistance()
 
     else:
         dist = unweightedDistance(temp, centroid)
-        print(dist)
         unweightedDistances[i-1] = dist
 
+    if i % 1 == 0:
+        os.makedirs(os.path.dirname(progressdir + "distance" + str(i) + ".txt"), exist_ok = True)
+        with open(progressdir + "distance" + str(i) + ".txt", "w") as f:
+            f.write("Time elapsed: " + str((time.time()-start)/60) + " minutes")
+
 np.save("unweighted.npy", unweightedDistances)
+print("unweighted distances saved in " + str((time.time()-start)/60) + " minutes")
