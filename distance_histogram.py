@@ -11,9 +11,6 @@ distances = np.load('unweighted.npy')
 
 print('done 1')
 
-mat = np.load('centroid.npy')
-
-
 
 plt.hist(distances,bins=NumBins) 
 plt.title("histogram") 
