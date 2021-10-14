@@ -12,7 +12,7 @@ with open(progressdir + "init.txt", "w") as f:
 
 centroid = np.load("centroid.npy")
 
-numGraphs = 1000
+numGraphs = 50000
 numDistricts = 18
 
 indices = {}
