@@ -44,7 +44,7 @@ Find w  and give it to the function below
 '''
 
 
-dist_to_thresh = weightedDistance(w, a1, a2)
+dist_to_thresh = weightedDistance(w, thresh, centroid)
 
 
 
