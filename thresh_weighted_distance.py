@@ -43,6 +43,8 @@ for i in range(n):
 Find w  and give it to the function below
 '''
 
+w = np.load("weights.npy")
+
 
 dist_to_thresh = weightedDistance(w, thresh, centroid)
 
