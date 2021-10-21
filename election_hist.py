@@ -4,7 +4,7 @@ import os
 import time
 import matplotlib.pyplot as plt
 
-numGraphs = 10
+numGraphs = 50000
 
 sen16 = np.zeros(numGraphs)
 pres16 = np.zeros(numGraphs)
