@@ -34,10 +34,10 @@ for i in range(1, numGraphs+1):
 
 print(str(time.time()-start))
 
-np.save("sen_seats.npy", senSeats)
-np.save("pres_seats.npy", presSeats)
-np.save("ag_seats.npy", agSeats)
-np.save("gov_seats.npy", govSeats)
+np.save("sen_seats.npy", sen16)
+np.save("pres_seats.npy", pres16)
+np.save("ag_seats.npy", ag16)
+np.save("gov_seats.npy", gov14)
 
 numBins = [int(i) for i in range(15)]
 
