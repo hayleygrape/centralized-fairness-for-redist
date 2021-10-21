@@ -13,6 +13,8 @@ gov14 = np.zeros(numGraphs)
 
 start = time.time()
 
+count = 0
+
 for i in range(1, numGraphs+1):
     fdir = "./JSON_Files2/plot" + str(i) + ".json"
     with open(fdir) as a:
@@ -27,6 +29,8 @@ for i in range(1, numGraphs+1):
     pres16[i-1] = presSeats
     ag16[i-1] = agSeats
     gov14[i-1] = govSeats
+
+    count += 1
 
 print(str(time.time()-start))
 
