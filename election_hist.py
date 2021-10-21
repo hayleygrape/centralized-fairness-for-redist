@@ -4,7 +4,7 @@ import os
 import time
 import matplotlib.pyplot as plt
 
-numGraphs = 10
+numGraphs = 50000
 
 sen16 = np.zeros(numGraphs)
 pres16 = np.zeros(numGraphs)
@@ -30,15 +30,12 @@ for i in range(1, numGraphs+1):
 
 print(str(time.time()-start))
 
-print(sen16)
-print(pres16)
-print(ag16)
-print(gov14)
-
-
+np.save("sen_seats", senSeats)
+np.save("pres_seats", presSeats)
+np.save("ag_seats", agSeats)
+np.save("gov_seats", govSeats)
 
 numBins = [int(i) for i in range(15)]
-print(numBins)
 
 plt.hist(sen16, bins=numBins, density=True)
 plt.savefig("sen16_hist.png")
