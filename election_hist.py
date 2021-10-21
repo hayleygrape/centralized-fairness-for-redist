@@ -4,7 +4,7 @@ import os
 import time
 import matplotlib.pyplot as plt
 
-numGraphs = 50000
+numGraphs = 10
 
 sen16 = np.zeros(numGraphs)
 pres16 = np.zeros(numGraphs)
@@ -34,10 +34,10 @@ for i in range(1, numGraphs+1):
 
 print(str(time.time()-start))
 
-np.save("sen_seats", senSeats)
-np.save("pres_seats", presSeats)
-np.save("ag_seats", agSeats)
-np.save("gov_seats", govSeats)
+np.save("sen_seats.npy", senSeats)
+np.save("pres_seats.npy", presSeats)
+np.save("ag_seats.npy", agSeats)
+np.save("gov_seats.npy", govSeats)
 
 numBins = [int(i) for i in range(15)]
 
